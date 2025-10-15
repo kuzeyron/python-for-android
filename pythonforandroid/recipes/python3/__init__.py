@@ -85,7 +85,7 @@ class Python3Recipe(TargetPythonRecipe):
         elif _p_version.minor >= 8:
             patches.append("patches/py3.8.1_fix_cortex_a8.patch")
 
-    depends = ['hostpython3', 'sqlite3', 'openssl', 'libffi']
+    depends = ['hostpython3', 'sqlite3', 'openssl', 'libffi', 'setuptools']
     # those optional depends allow us to build python compression modules:
     #   - _bz2.so
     #   - _lzma.so

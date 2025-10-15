@@ -10,7 +10,7 @@ class CffiRecipe(CompiledComponentsPythonRecipe):
     version = '1.15.1'
     url = 'https://pypi.python.org/packages/source/c/cffi/cffi-{version}.tar.gz'
 
-    depends = ['setuptools', 'pycparser', 'libffi']
+    depends = ['pycparser', 'libffi']
 
     patches = ['disable-pkg-config.patch']
 

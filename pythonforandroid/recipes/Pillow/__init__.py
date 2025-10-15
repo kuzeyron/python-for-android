@@ -28,7 +28,6 @@ class PillowRecipe(PyProjectRecipe):
     site_packages_name = 'PIL'
     patches = ["setup.py.patch"]
     depends = ['png', 'jpeg', 'freetype']
-    hostpython_prerequisites = ["setuptools>=77"]
     opt_depends = ['libwebp']
 
     def get_recipe_env(self, arch, **kwargs):

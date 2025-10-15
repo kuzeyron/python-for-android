@@ -25,7 +25,7 @@ class KivyRecipe(PyProjectRecipe):
     url = 'https://github.com/kivy/kivy/archive/{version}.zip'
     name = 'kivy'
 
-    depends = [('sdl2', 'sdl3'), 'pyjnius', 'setuptools', 'android']
+    depends = [('sdl2', 'sdl3'), 'pyjnius', 'android']
     python_depends = ['certifi', 'chardet', 'idna', 'requests', 'urllib3', 'filetype']
     hostpython_prerequisites = ["cython>=0.29.1,<=3.0.12"]
 

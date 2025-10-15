@@ -46,6 +46,8 @@ class HostPython3Recipe(Recipe):
     '''Specify the sub build directory for the hostpython3 recipe. Defaults
     to ``native-build``.'''
 
+    depends = ['setuptools']
+
     @property
     def _exe_name(self):
         '''
