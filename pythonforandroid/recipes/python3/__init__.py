@@ -131,7 +131,6 @@ class Python3Recipe(TargetPythonRecipe):
         '*.exe',
         '*.py',
         '*.whl',
-        'cmd.pyc',
         'turtle.pyc'
     ]
     '''The file extensions that we want to blacklist for our python bundle'''
