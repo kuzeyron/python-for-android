@@ -135,7 +135,7 @@ MIN_TARGET_API = 30
 
 # highest version tested to work fine with SDL2
 # should be a good default for other bootstraps too
-RECOMMENDED_TARGET_API = 33
+RECOMMENDED_TARGET_API = 36
 
 ARMEABI_MAX_TARGET_API = 21
 OLD_API_MESSAGE = (
@@ -162,7 +162,7 @@ def check_target_api(api, arch):
         warning(OLD_API_MESSAGE)
 
 
-MIN_NDK_API = 21
+MIN_NDK_API = 24
 RECOMMENDED_NDK_API = 24
 OLD_NDK_API_MESSAGE = ('NDK API less than {} is not supported'.format(MIN_NDK_API))
 TARGET_NDK_API_GREATER_THAN_TARGET_API_MESSAGE = (
