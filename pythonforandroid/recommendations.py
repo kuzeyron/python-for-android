@@ -135,7 +135,7 @@ MIN_TARGET_API = 30
 
 # highest version tested to work fine with SDL2
 # should be a good default for other bootstraps too
-RECOMMENDED_TARGET_API = 36
+RECOMMENDED_TARGET_API = 33
 
 ARMEABI_MAX_TARGET_API = 21
 OLD_API_MESSAGE = (
