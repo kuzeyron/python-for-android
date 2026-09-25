@@ -93,14 +93,14 @@ class TestAndroidAPIChecks:
     def test_is_api_equal(self):
         """Test is_api for equal API level."""
         mock_recipe = mock.Mock()
-        mock_recipe.ctx.android_api = 21
-        check_fn = is_api(21)
+        mock_recipe.ctx.android_api = 24
+        check_fn = is_api(24)
         assert check_fn(None, mock_recipe)
 
     def test_is_api_not_equal(self):
         """Test is_api for unequal API level."""
         mock_recipe = mock.Mock()
-        mock_recipe.ctx.android_api = 21
+        mock_recipe.ctx.android_api = 24
         check_fn = is_api(27)
         assert not check_fn(None, mock_recipe)
 
@@ -108,21 +108,21 @@ class TestAndroidAPIChecks:
         """Test is_api_gt for greater than comparison."""
         mock_recipe = mock.Mock()
         mock_recipe.ctx.android_api = 27
-        check_fn = is_api_gt(21)
+        check_fn = is_api_gt(24)
         assert check_fn(None, mock_recipe)
 
-        mock_recipe.ctx.android_api = 21
+        mock_recipe.ctx.android_api = 24
         assert not check_fn(None, mock_recipe)
 
     def test_is_api_gte(self):
         """Test is_api_gte for greater than or equal comparison."""
         mock_recipe = mock.Mock()
         mock_recipe.ctx.android_api = 27
-        check_fn = is_api_gte(21)
+        check_fn = is_api_gte(24)
         assert check_fn(None, mock_recipe)
 
-        mock_recipe.ctx.android_api = 21
-        check_fn = is_api_gte(21)
+        mock_recipe.ctx.android_api = 24
+        check_fn = is_api_gte(24)
         assert check_fn(None, mock_recipe)
 
         mock_recipe.ctx.android_api = 19
@@ -132,21 +132,21 @@ class TestAndroidAPIChecks:
         """Test is_api_lt for less than comparison."""
         mock_recipe = mock.Mock()
         mock_recipe.ctx.android_api = 19
-        check_fn = is_api_lt(21)
+        check_fn = is_api_lt(24)
         assert check_fn(None, mock_recipe)
 
-        mock_recipe.ctx.android_api = 21
+        mock_recipe.ctx.android_api = 24
         assert not check_fn(None, mock_recipe)
 
     def test_is_api_lte(self):
         """Test is_api_lte for less than or equal comparison."""
         mock_recipe = mock.Mock()
         mock_recipe.ctx.android_api = 19
-        check_fn = is_api_lte(21)
+        check_fn = is_api_lte(24)
         assert check_fn(None, mock_recipe)
 
-        mock_recipe.ctx.android_api = 21
-        check_fn = is_api_lte(21)
+        mock_recipe.ctx.android_api = 24
+        check_fn = is_api_lte(24)
         assert check_fn(None, mock_recipe)
 
         mock_recipe.ctx.android_api = 27

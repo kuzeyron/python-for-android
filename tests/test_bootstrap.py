@@ -30,8 +30,8 @@ class BaseClassSetupBootstrap:
     def setUp(self):
         Recipe.recipes = {}  # clear Recipe class cache
         self.ctx = Context()
-        self.ctx.ndk_api = 21
-        self.ctx.android_api = 27
+        self.ctx.ndk_api = 24
+        self.ctx.android_api = 33
         self.ctx._sdk_dir = "/opt/android/android-sdk"
         self.ctx._ndk_dir = "/opt/android/android-ndk"
         self.ctx.ndk = AndroidNDK(self.ctx._ndk_dir)
