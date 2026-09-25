@@ -73,8 +73,8 @@ class TestUtil(unittest.TestCase):
         ):
             pass
 
-    @mock.patch("pythonforandroid.util.Path")
-    def test_walk_valid_filens(self, mock_walk):
+    @mock.patch("pythonforandroid.util.Path.glob")
+    def test_walk_valid_filens(self, mock_glob):
         """
         Test method :meth:`~pythonforandroid.util.walk_valid_filens`
         In here we simulate the following directory structure:
@@ -103,12 +103,17 @@ class TestUtil(unittest.TestCase):
             "/fake_dir/Lib/ctypes/util.pyc",
         }
         """
-        simulated_walk_result = [
-            ["/fake_dir", ["__pycache__", "Lib"], ["README", "setup.py"]],
-            ["/fake_dir/Lib", ["ctypes"], ["abc.pyc", "abc.py"]],
-            ["/fake_dir/Lib/ctypes", [], ["util.pyc", "util.py"]],
+        fake_paths = [
+            "/fake_dir/README",
+            "/fake_dir/setup.py",
+            "/fake_dir/__pycache__/somefile",
+            "/fake_dir/Lib/abc.pyc",
+            "/fake_dir/Lib/abc.py",
+            "/fake_dir/Lib/ctypes/util.pyc",
+            "/fake_dir/Lib/ctypes/util.py",
         ]
-        mock_walk.return_value = simulated_walk_result
+        mock_glob.return_value = [Path(p) for p in fake_paths]
+
         file_ens = util.walk_valid_filens(
             "/fake_dir", ["__pycache__"], ["*.py"]
         )
