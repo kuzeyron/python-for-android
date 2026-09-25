@@ -73,23 +73,28 @@ class Python3Recipe(TargetPythonRecipe):
     configure_args = [
         '--host={android_host}',
         '--build={android_build}',
-        '--enable-shared',
         '--enable-ipv6',
         '--enable-loadable-sqlite-extensions',
-        '--without-static-libpython',
-        '--without-readline',
+        '--enable-shared',
+
+        # Attempt on making the builds lighter
+        '--disable-test-modules',
+        '--without-c-locale-coercion',
+        '--without-decimal-contextvar',
+        '--without-doc-strings',
         '--without-ensurepip',
+        '--without-readline',
+        '--without-static-libpython',
 
         # Android prefix
         '--prefix={prefix}',
-        '--enable-loadable-sqlite-extensions',
 
         # Special cross compile args
-        'ac_cv_file__dev_ptmx=yes',
-        'ac_cv_file__dev_ptc=no',
-        'ac_cv_header_sys_eventfd_h=no',
-        'ac_cv_little_endian_double=yes',
         'ac_cv_header_bzlib_h=no',
+        'ac_cv_header_sys_eventfd_h=no',
+        'py_cv_module__curses=n/a',
+        'py_cv_module__curses_panel=n/a',
+        'py_cv_module__tkinter=n/a'
     ]
 
     '''The configure arguments needed to build the python recipe. Those are
@@ -97,34 +102,44 @@ class Python3Recipe(TargetPythonRecipe):
     recipe does).
     '''
 
-    MIN_NDK_API = 21
+    MIN_NDK_API = 24
     '''Sets the minimal ndk api number needed to use the recipe.
 
-    .. warning:: This recipe can be built only against API 21+, so it means
-        that any class which inherits from class:`GuestPythonRecipe` will have
-        this limitation.
+    .. warning:: Starting from Python 3.14 this recipe can only be built
+       against API 24+, so it means that any class which inherits from
+       class:`GuestPythonRecipe` will have this limitation.
     '''
 
     stdlib_dir_blacklist = {
         '__pycache__',
-        'test',
-        'tests',
-        'lib2to3',
+        'curses',
         'ensurepip',
         'idlelib',
+        'lib2to3',
+        'msilib',
+        'multiprocessing',
+        'pydoc_data',
+        'test',
+        'tests',
         'tkinter',
+        'turtledemo',
+        'venv'
     }
     '''The directories that we want to omit for our python bundle'''
 
     stdlib_filen_blacklist = [
-        '*.py',
         '*.exe',
+        '*.py',
         '*.whl',
+        'cmd.pyc',
+        'turtle.pyc'
     ]
     '''The file extensions that we want to blacklist for our python bundle'''
 
     site_packages_dir_blacklist = {
         '__pycache__',
+        '*.dist-info',
+        'bin',
         'tests'
     }
     '''The directories from site packages dir that we don't want to be included
@@ -139,7 +154,8 @@ class Python3Recipe(TargetPythonRecipe):
     if the full path contains any of these exceptions.'''
 
     site_packages_filen_blacklist = [
-        '*.py'
+        '*.py',
+        '*.pyx'
     ]
     '''The file extensions from site packages dir that we don't want to be
     included in our python bundle.'''
@@ -235,19 +251,20 @@ class Python3Recipe(TargetPythonRecipe):
     def get_recipe_env(self, arch=None, with_flags_in_cc=True):
         env = super().get_recipe_env(arch)
         env['HOSTARCH'] = arch.command_prefix
-
         env['CC'] = arch.get_clang_exe(with_target=True)
-
-        env['PATH'] = (
-            '{hostpython_dir}:{old_path}').format(
-                hostpython_dir=self.get_recipe(
-                    'host' + self.name, self.ctx).get_path_to_python(),
-                old_path=env['PATH'])
-
+        env['PATH'] = '{hostpython_dir}:{old_path}'.format(
+            hostpython_dir=self.get_recipe(
+                'host' + self.name, self.ctx
+            ).get_path_to_python(),
+            old_path=env['PATH']
+        )
         env['CFLAGS'] = ' '.join(
             [
+                '-ffunction-sections',
+                '-fdata-sections',
                 '-fPIC',
-                '-DANDROID'
+                '-Oz',
+                '-g0'
             ]
         )
 
@@ -256,6 +273,8 @@ class Python3Recipe(TargetPythonRecipe):
             # Note: The -L. is to fix a bug in python 3.7.
             # https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=234409
             env['LDFLAGS'] += ' -L. -fuse-ld=lld'
+            env['LDFLAGS'] += ' -Wl,--gc-sections'
+            env['LDFLAGS'] += ' -Wl,--strip-all'
         else:
             warning('lld not found, linking without it. '
                     'Consider installing lld if linker errors occur.')
@@ -402,7 +421,7 @@ class Python3Recipe(TargetPythonRecipe):
             longer used...uses .pyc (https://www.python.org/dev/peps/pep-0488)
         '''
         args = [self.ctx.hostpython]
-        args += ['-OO', '-m', 'compileall', '-b', '-f', dir]
+        args += ['-OO', '-m', 'compileall', '-b', '-f', '-q', dir]
         subprocess.call(args)
 
     def create_python_bundle(self, dirn, arch):
