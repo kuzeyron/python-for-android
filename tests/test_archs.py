@@ -83,7 +83,7 @@ class TestArch(ArchSetUpBaseClass, unittest.TestCase):
     def test_arch(self):
         arch = Arch(self.ctx)
         self.assertEqual(arch.__str__(), arch.arch)
-        self.assertEqual(arch.target, "None21")
+        self.assertEqual(arch.target, "None24")
         self.assertIsNone(arch.command_prefix)
         self.assertIsInstance(arch.include_dirs, list)
 
@@ -118,7 +118,7 @@ class TestArchARM(ArchSetUpBaseClass, unittest.TestCase):
         self.assertEqual(arch.arch, "armeabi")
         self.assertEqual(arch.__str__(), "armeabi")
         self.assertEqual(arch.command_prefix, "arm-linux-androideabi")
-        self.assertEqual(arch.target, "armv7a-linux-androideabi21")
+        self.assertEqual(arch.target, "armv7a-linux-androideabi24")
         arch = ArchARM(self.ctx)
 
         # Check environment flags
@@ -214,7 +214,7 @@ class TestArchARMv7a(ArchSetUpBaseClass, unittest.TestCase):
         self.assertEqual(arch.arch, "armeabi-v7a")
         self.assertEqual(arch.__str__(), "armeabi-v7a")
         self.assertEqual(arch.command_prefix, "arm-linux-androideabi")
-        self.assertEqual(arch.target, "armv7a-linux-androideabi21")
+        self.assertEqual(arch.target, "armv7a-linux-androideabi24")
 
         env = arch.get_env()
         # check shutil.which calls
@@ -272,7 +272,7 @@ class TestArchX86(ArchSetUpBaseClass, unittest.TestCase):
         self.assertEqual(arch.arch, "x86")
         self.assertEqual(arch.__str__(), "x86")
         self.assertEqual(arch.command_prefix, "i686-linux-android")
-        self.assertEqual(arch.target, "i686-linux-android21")
+        self.assertEqual(arch.target, "i686-linux-android24")
 
         env = arch.get_env()
         # check shutil.which calls
@@ -317,7 +317,7 @@ class TestArchX86_64(ArchSetUpBaseClass, unittest.TestCase):
         self.assertEqual(arch.arch, "x86_64")
         self.assertEqual(arch.__str__(), "x86_64")
         self.assertEqual(arch.command_prefix, "x86_64-linux-android")
-        self.assertEqual(arch.target, "x86_64-linux-android21")
+        self.assertEqual(arch.target, "x86_64-linux-android24")
 
         env = arch.get_env()
         # check shutil.which calls
@@ -362,7 +362,7 @@ class TestArchAArch64(ArchSetUpBaseClass, unittest.TestCase):
         self.assertEqual(arch.arch, "arm64-v8a")
         self.assertEqual(arch.__str__(), "arm64-v8a")
         self.assertEqual(arch.command_prefix, "aarch64-linux-android")
-        self.assertEqual(arch.target, "aarch64-linux-android21")
+        self.assertEqual(arch.target, "aarch64-linux-android24")
 
         env = arch.get_env()
         # check shutil.which calls
