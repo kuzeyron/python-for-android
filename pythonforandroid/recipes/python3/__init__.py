@@ -139,7 +139,9 @@ class Python3Recipe(TargetPythonRecipe):
         '__pycache__',
         '*.dist-info',
         'bin',
-        'tests'
+        'tests',
+        'setuptools',
+        '_distutils_hack'
     }
     '''The directories from site packages dir that we don't want to be included
     in our python bundle.'''
