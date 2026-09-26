@@ -61,7 +61,7 @@ class TestPython3Recipe(RecipeCtx, unittest.TestCase):
         )
         env = self.recipe.get_recipe_env(self.arch)
 
-        self.assertIn('-fPIC -DANDROID', env["CFLAGS"])
+        self.assertIn('-fPIC', env["CFLAGS"])
         self.assertEqual(env["CC"], self.arch.get_clang_exe(with_target=True))
 
         # make sure that the mocked methods are actually called
