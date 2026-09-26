@@ -102,11 +102,11 @@ class Python3Recipe(TargetPythonRecipe):
     recipe does).
     '''
 
-    MIN_NDK_API = 24
+    MIN_NDK_API = 21
     '''Sets the minimal ndk api number needed to use the recipe.
 
     .. warning:: Starting from Python 3.14 this recipe can only be built
-       against API 24+, so it means that any class which inherits from
+       against API 21+, so it means that any class which inherits from
        class:`GuestPythonRecipe` will have this limitation.
     '''
 

@@ -13,11 +13,11 @@ dist_info_data = {
     "dist_name": "sdl2_dist",
     "bootstrap": "sdl2",
     "archs": ["armeabi", "armeabi-v7a", "x86", "x86_64", "arm64-v8a"],
-    "ndk_api": 24,
+    "ndk_api": 21,
     "use_setup_py": False,
     "recipes": ["hostpython3", "python3", "sdl2", "kivy", "requests"],
     "hostpython": "/some/fake/hostpython3",
-    "python_version": "3.10",
+    "python_version": "3.7",
 }
 
 
@@ -33,8 +33,8 @@ class TestDistribution(unittest.TestCase):
         """Configure a :class:`~pythonforandroid.build.Context` so we can
         perform our unittests"""
         self.ctx = Context()
-        self.ctx.ndk_api = 24
-        self.ctx.android_api = 33
+        self.ctx.ndk_api = 21
+        self.ctx.android_api = 27
         self.ctx._sdk_dir = "/opt/android/android-sdk"
         self.ctx._ndk_dir = "/opt/android/android-ndk"
         self.ctx.setup_dirs(os.getcwd())
@@ -162,7 +162,7 @@ class TestDistribution(unittest.TestCase):
         self.assertIsInstance(dists[0], Distribution)
         self.assertEqual(dists[0].name, "sdl2_dist")
         self.assertEqual(dists[0].dist_dir, "sdl2-python3")
-        self.assertEqual(dists[0].ndk_api, 24)
+        self.assertEqual(dists[0].ndk_api, 21)
         self.assertEqual(
             dists[0].recipes,
             ["hostpython3", "python3", "sdl2", "kivy", "requests"],
@@ -228,7 +228,7 @@ class TestDistribution(unittest.TestCase):
             e.exception.args[0],
             "Asked for dist with name test_prj with recipes (python3, kivy)"
             " and NDK API 22, but a dist with this name already exists and has"
-            " either incompatible recipes (python3, kivy) or NDK API 24",
+            " either incompatible recipes (python3, kivy) or NDK API 21",
         )
 
     def test_get_distributions_error_extra_dist_dirs(self):
