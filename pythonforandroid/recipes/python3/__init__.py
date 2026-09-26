@@ -262,7 +262,7 @@ class Python3Recipe(TargetPythonRecipe):
                 '-ffunction-sections',
                 '-fdata-sections',
                 '-fPIC',
-                '-Oz',
+                '-O3',
                 '-g0'
             ]
         )
@@ -272,8 +272,6 @@ class Python3Recipe(TargetPythonRecipe):
             # Note: The -L. is to fix a bug in python 3.7.
             # https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=234409
             env['LDFLAGS'] += ' -L. -fuse-ld=lld'
-            env['LDFLAGS'] += ' -Wl,--gc-sections'
-            env['LDFLAGS'] += ' -Wl,--strip-all'
         else:
             warning('lld not found, linking without it. '
                     'Consider installing lld if linker errors occur.')
