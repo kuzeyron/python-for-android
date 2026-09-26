@@ -228,7 +228,7 @@ class TestDistribution(unittest.TestCase):
             e.exception.args[0],
             "Asked for dist with name test_prj with recipes (python3, kivy)"
             " and NDK API 22, but a dist with this name already exists and has"
-            " either incompatible recipes (python3, kivy) or NDK API 21",
+            " either incompatible recipes (python3, kivy) or NDK API 24",
         )
 
     def test_get_distributions_error_extra_dist_dirs(self):

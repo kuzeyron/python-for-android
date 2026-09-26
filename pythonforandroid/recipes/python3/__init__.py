@@ -261,9 +261,7 @@ class Python3Recipe(TargetPythonRecipe):
             [
                 '-ffunction-sections',
                 '-fdata-sections',
-                '-fPIC',
-                '-O3',
-                '-g0'
+                '-fPIC'
             ]
         )
 
